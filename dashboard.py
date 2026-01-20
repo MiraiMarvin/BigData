@@ -14,13 +14,13 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📊 BigData Analytics Dashboard")
+st.title("BigData Analytics Dashboard")
 st.markdown("Dashboard interactif alimenté par MongoDB via API FastAPI")
 
 st.sidebar.title("Navigation")
 page = st.sidebar.radio(
     "Choisir une vue",
-    ["🏠 Accueil", "👥 Clients", "📦 Produits", "📅 Tendances", "🌍 Pays", "⚡ Performances"]
+    ["Accueil", "Clients", "Produits", "Tendances", "Pays", "Performances"]
 )
 
 
@@ -52,7 +52,7 @@ def fetch_api(endpoint: str, params: dict = None) -> dict:
         }
 
 
-if page == "🏠 Accueil":
+if page == "Accueil":
     st.header("Vue d'ensemble")
     
     result = fetch_api("/stats/summary")
@@ -80,12 +80,12 @@ if page == "🏠 Accueil":
         with col3:
             st.metric("Temps de Réponse API", f"{data.get('response_time_ms', 0):.2f} ms")
         
-        st.success("✅ API et MongoDB opérationnels")
+        st.success("API et MongoDB opérationnels")
     else:
-        st.error(f"❌ Erreur lors de la récupération des données: {result.get('error')}")
+        st.error(f"Erreur lors de la récupération des données: {result.get('error')}")
 
 
-elif page == "👥 Clients":
+elif page == "Clients":
     st.header("Statistiques Clients")
     
     col1, col2 = st.columns(2)
@@ -135,7 +135,7 @@ elif page == "👥 Clients":
         st.error(f"Erreur: {result.get('error')}")
 
 
-elif page == "📦 Produits":
+elif page == "Produits":
     st.header("Statistiques Produits")
     
     result = fetch_api("/products")
@@ -184,7 +184,7 @@ elif page == "📦 Produits":
         st.error(f"Erreur: {result.get('error')}")
 
 
-elif page == "📅 Tendances":
+elif page == "Tendances":
     st.header("Tendances Mensuelles")
     
     result = fetch_api("/monthly")
@@ -232,7 +232,7 @@ elif page == "📅 Tendances":
         st.error(f"Erreur: {result.get('error')}")
 
 
-elif page == "🌍 Pays":
+elif page == "Pays":
     st.header("Statistiques par Pays")
     
     result = fetch_api("/countries")
@@ -279,7 +279,7 @@ elif page == "🌍 Pays":
         st.error(f"Erreur: {result.get('error')}")
 
 
-elif page == "⚡ Performances":
+elif page == "Performances":
     st.header("Mesures de Performance")
     
     st.markdown("""
@@ -306,7 +306,7 @@ elif page == "⚡ Performances":
                 results.append({
                     "Endpoint": f"{endpoint}{param_str}",
                     "Temps (ms)": round(result["response_time"], 2),
-                    "Statut": "✅" if result["success"] else "❌",
+                    "Statut": "OK" if result["success"] else "Erreur",
                     "Records": len(result["data"]) if result["success"] and isinstance(result["data"], list) else "-"
                 })
             
